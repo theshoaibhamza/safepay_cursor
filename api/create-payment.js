@@ -1,4 +1,5 @@
 const { Safepay } = require('@sfpy/node-sdk');
+const getRawBody = require('raw-body');
 
 function setCorsHeaders(res) {
   const allowedOrigin = process.env.CORS_ORIGIN || '*';
@@ -27,7 +28,12 @@ module.exports = async function handler(req, res) {
       webhookSecret: process.env.SAFEPAY_WEBHOOK_SECRET
     });
 
-    const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body || {};
+    let body = req.body || {};
+    if (!Object.keys(body || {}).length && req.method === 'POST') {
+      const raw = await getRawBody(req);
+      const text = raw.toString('utf8');
+      body = text ? JSON.parse(text) : {};
+    }
     const { amount, currency, orderId, redirectUrl, cancelUrl } = body;
 
     if (!amount || !currency || !orderId) {
@@ -51,3 +57,5 @@ module.exports = async function handler(req, res) {
 };
 
 
+
+//

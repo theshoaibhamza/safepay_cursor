@@ -37,10 +37,6 @@ module.exports = async function handler(req, res) {
   }
 };
 
-module.exports.config = {
-  api: {
-    bodyParser: false
-  }
-};
+// No framework body parsing; handler reads raw body explicitly.
 
 
