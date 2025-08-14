@@ -1,0 +1,19 @@
+{
+  "name": "safepay-backend-vercel",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "vercel dev",
+    "start": "node api/index.js"
+  },
+  "dependencies": {
+    "@sfpy/node-sdk": "^1.0.0",
+    "raw-body": "^2.5.2"
+  }
+}
+
+
